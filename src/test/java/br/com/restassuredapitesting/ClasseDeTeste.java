@@ -1,5 +1,7 @@
+import br.com.restassuredapitesting.suites.AllTests;
 import io.restassured.response.Response;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 //import java.util.concurrent.TimeUnit;
 
@@ -10,6 +12,7 @@ import static org.hamcrest.Matchers.greaterThan;
 public class ClasseDeTeste {
 
     @Test
+    @Category({AllTests.class})
     public void validaApiOnline() {
         Response responsePing =
                 given()
@@ -24,6 +27,7 @@ public class ClasseDeTeste {
     }
 
     @Test
+    @Category({AllTests.class})
     public void validaListagemDeIdsDasReservas() {
         Response responseListagemIdsReservas =
                 given()
