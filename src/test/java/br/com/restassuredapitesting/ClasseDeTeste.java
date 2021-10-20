@@ -1,3 +1,5 @@
+package br.com.restassuredapitesting;
+
 import br.com.restassuredapitesting.suites.AllTests;
 import io.restassured.response.Response;
 import org.junit.Test;
