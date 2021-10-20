@@ -1,2 +1,4 @@
-package br.com.restassuredapitesting.suites;public interface AllTests {
+package br.com.restassuredapitesting.suites;
+
+public interface AllTests {
 }
