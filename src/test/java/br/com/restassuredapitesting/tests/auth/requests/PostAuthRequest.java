@@ -2,7 +2,6 @@ package br.com.restassuredapitesting.tests.auth.requests;
 
 import br.com.restassuredapitesting.tests.auth.requests.payload.AuthPayloads;
 import io.restassured.response.Response;
-import org.json.JSONObject;
 
 import static io.restassured.RestAssured.given;
 
