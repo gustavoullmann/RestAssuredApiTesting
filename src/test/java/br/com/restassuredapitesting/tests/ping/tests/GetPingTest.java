@@ -1,4 +1,4 @@
-package br.com.restassuredapitesting.tests;
+package br.com.restassuredapitesting.tests.ping.tests;
 
 import br.com.restassuredapitesting.suites.AllTests;
 import br.com.restassuredapitesting.tests.ping.requests.GetPingRequest;
@@ -10,7 +10,7 @@ import org.junit.experimental.categories.Category;
 
 public class GetPingTest {
 
-    GetPingRequest getPingRequest = new GetPingTest();
+    GetPingRequest getPingRequest = new GetPingRequest();
 
     @Test
     @Category({AllTests.class})
