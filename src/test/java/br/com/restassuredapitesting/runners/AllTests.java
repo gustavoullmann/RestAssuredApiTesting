@@ -1,6 +1,6 @@
 package br.com.restassuredapitesting.runners;
 
-import br.com.restassuredapitesting.ClasseDeTeste;
+import br.com.restassuredapitesting.tests.ClasseDeTeste;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -11,4 +11,5 @@ import org.junit.runners.Suite;
         ClasseDeTeste.class
 })
 public class AllTests {
+
 }
