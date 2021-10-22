@@ -3,7 +3,7 @@ package br.com.restassuredapitesting.tests.ping.tests;
 import br.com.restassuredapitesting.base.BaseTest;
 import br.com.restassuredapitesting.suites.AllTests;
 import br.com.restassuredapitesting.suites.HealthCheck;
-import br.com.restassuredapitesting.tests.ping.requests.HealthCheckRequest;
+import br.com.restassuredapitesting.tests.ping.requests.GetPingRequest;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -12,9 +12,9 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Feature("Feature - Verificação de status de API")
-public class GetHealthCheckTest extends BaseTest {
+public class GetPingTest extends BaseTest {
 
-    HealthCheckRequest healthCheckRequest = new HealthCheckRequest();
+    GetPingRequest getPingRequest = new GetPingRequest();
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
@@ -22,7 +22,7 @@ public class GetHealthCheckTest extends BaseTest {
     @DisplayName("Verifica se a API está online")
     public void verificaApiOnline() {
 
-        healthCheckRequest.healthCheckApiReturn()
+        getPingRequest.healthCheckApiReturn()
                 .then()
                 .statusCode(201);
     }

@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class HealthCheckRequest {
+public class GetPingRequest {
 
     @Step("Retorna API online")
     public Response healthCheckApiReturn() {
