@@ -43,6 +43,6 @@ public class GetBookingTest extends BaseTest {
         getBookingRequest.bookingReturnIds()
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookings"))));
+                .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookingsIdList"))));
     }
 }
