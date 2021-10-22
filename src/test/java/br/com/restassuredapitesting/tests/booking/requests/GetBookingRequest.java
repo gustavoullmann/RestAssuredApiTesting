@@ -13,4 +13,17 @@ public class GetBookingRequest {
                 .when()
                 .get("booking");
     }
+
+    @Step("Retorna a primeira reserva cadastrada")
+    public Response bookingReturn() {
+        int primeiroId = bookingReturnIds()
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("[0].bookingid");
+
+        return given()
+                .when()
+                .get("booking/" + primeiroId);
+    }
 }
