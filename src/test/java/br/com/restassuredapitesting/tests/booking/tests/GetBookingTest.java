@@ -1,8 +1,8 @@
 package br.com.restassuredapitesting.tests.booking.tests;
 
 import br.com.restassuredapitesting.base.BaseTest;
+import br.com.restassuredapitesting.suites.AcceptanceTests;
 import br.com.restassuredapitesting.suites.AllTests;
-import br.com.restassuredapitesting.suites.ContractTests;
 import br.com.restassuredapitesting.suites.SchemaTests;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
 import br.com.restassuredapitesting.utils.Utils;
@@ -25,7 +25,7 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class})
+    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Listar Id's de reservas")
     public void validaListagemDeIdsDasReservas() {
 
