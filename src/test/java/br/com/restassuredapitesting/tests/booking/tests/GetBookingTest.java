@@ -3,6 +3,7 @@ package br.com.restassuredapitesting.tests.booking.tests;
 import br.com.restassuredapitesting.base.BaseTest;
 import br.com.restassuredapitesting.suites.AllTests;
 import br.com.restassuredapitesting.suites.ContractTests;
+import br.com.restassuredapitesting.suites.SchemaTests;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
 import br.com.restassuredapitesting.utils.Utils;
 import io.qameta.allure.Feature;
@@ -36,7 +37,7 @@ public class GetBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.BLOCKER)
-    @Category({AllTests.class, ContractTests.class})
+    @Category({AllTests.class, SchemaTests.class})
     @DisplayName("Garantir o schema de retorno da listagem de reservas")
     public void validaSchemaDaListagemDeReservas() {
 
@@ -44,5 +45,17 @@ public class GetBookingTest extends BaseTest {
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookingsIdList"))));
+    }
+
+    @Test
+    @Severity(SeverityLevel.BLOCKER)
+    @Category({AllTests.class, SchemaTests.class})
+    @DisplayName("Garantir o schema de retorno de uma reserva")
+    public void validaSchemaDeUmaReserva() {
+
+        getBookingRequest.bookingReturn()
+                .then()
+                .statusCode(200)
+                .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
     }
 }
