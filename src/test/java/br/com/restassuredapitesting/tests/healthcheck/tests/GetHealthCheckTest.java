@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
 @Feature("Feature - Verificação de status de API")
-public class HealthCheckTest extends BaseTest {
+public class GetHealthCheckTest extends BaseTest {
 
     HealthCheckRequest healthCheckRequest = new HealthCheckRequest();
 
