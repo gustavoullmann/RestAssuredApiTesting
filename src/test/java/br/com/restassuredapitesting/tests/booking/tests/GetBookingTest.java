@@ -58,4 +58,15 @@ public class GetBookingTest extends BaseTest {
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
     }
+
+    @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Garantir o retorno de uma reserva específica")
+    public void validaRetornoDeReservaEspecifica() {
+
+        getBookingRequest.bookingReturnFirstId()
+                .then()
+                .statusCode(200);
+    }
 }
