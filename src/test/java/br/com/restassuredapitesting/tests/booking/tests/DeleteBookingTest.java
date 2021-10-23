@@ -53,4 +53,27 @@ public class DeleteBookingTest extends BaseTest {
                 .statusCode(405);
 //              .body()??? TODO: revisar
     }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Excluir uma reserva válida utilizando um token inválido")
+    public void deletaUmaReservaSemToken() {
+
+
+        int primeiroId = getBookingRequest.bookingReturnIds()
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("[0].bookingid");
+
+        deleteBookingRequest.deleteBookingToken(primeiroId, "invalidToken")
+                .then()
+                .statusCode(403);
+//              .body()??? TODO: revisar
+
+        getBookingRequest.bookingReturn(primeiroId)
+                .then()
+                .statusCode(200);
+    }
 }
