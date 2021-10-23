@@ -24,7 +24,7 @@ public class DeleteBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Excluir uma reserva válida utilizando um token válido")
+    @DisplayName("Excluir com sucesso uma reserva válida utilizando um token válido")
     public void deletaUmaReserva() {
         int primeiroId = getBookingRequest.bookingReturnIds()
                 .then()
@@ -56,11 +56,9 @@ public class DeleteBookingTest extends BaseTest {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
-    @Category({AllTests.class, AcceptanceTests.class})
+    @Category({AllTests.class, EndToEnd.class})
     @DisplayName("Excluir uma reserva válida utilizando um token inválido")
     public void deletaUmaReservaSemToken() {
-
-
         int primeiroId = getBookingRequest.bookingReturnIds()
                 .then()
                 .statusCode(200)
