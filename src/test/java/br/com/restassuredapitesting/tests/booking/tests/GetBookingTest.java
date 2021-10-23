@@ -53,7 +53,7 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Garantir o schema de retorno de uma reserva")
     public void validaSchemaDeUmaReserva() {
 
-        getBookingRequest.bookingReturn()
+        getBookingRequest.bookingReturnFirstId()
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
