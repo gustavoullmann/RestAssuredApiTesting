@@ -36,6 +36,10 @@ public class DeleteBookingTest extends BaseTest {
                 .then()
                 .statusCode(201);
 //              .body()??? TODO: revisar
+
+        getBookingRequest.bookingReturn(primeiroId)
+                .then()
+                .statusCode(404);
     }
 
     @Test
