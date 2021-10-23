@@ -15,7 +15,7 @@ public class GetBookingRequest {
     }
 
     @Step("Retorna a primeira reserva cadastrada")
-    public Response bookingReturn() {
+    public Response bookingReturnFirstId() {
         int primeiroId = bookingReturnIds()
                 .then()
                 .statusCode(200)
@@ -25,5 +25,12 @@ public class GetBookingRequest {
         return given()
                 .when()
                 .get("booking/" + primeiroId);
+    }
+
+    @Step("Retorna uma reserva específica cadastrada")
+    public Response bookingReturn(int id) {
+        return given()
+                .when()
+                .get("booking/" + id);
     }
 }
