@@ -69,4 +69,76 @@ public class GetBookingTest extends BaseTest {
                 .then()
                 .statusCode(200);
     }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pelo nome")
+    public void validaListagemDeIdsDasReservasPeloNome() {
+
+        getBookingRequest.bookingReturnIdsByName()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pelo sobrenome")
+    public void validaListagemDeIdsDasReservasPeloSobrenome() {
+
+        getBookingRequest.bookingReturnIdsByLastName()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pela data checkin")
+    public void validaListagemDeIdsDasReservasPeloCheckin() {
+
+        getBookingRequest.bookingReturnIdsByCheckin()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pela data checkout")
+    public void validaListagemDeIdsDasReservasPeloCheckout() {
+
+        getBookingRequest.bookingReturnIdsByCheckout()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pelas datas checkin e checkout")
+    public void validaListagemDeIdsDasReservasPeloCheckinAndCheckout() {
+
+        getBookingRequest.bookingReturnIdsByCheckinAndCheckout()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Listar Id's de reservas filtrados pelo nome e datas checkin e checkout")
+    public void validaListagemDeIdsDasReservasPeloNomeAndCheckinAndCheckout() {
+
+        getBookingRequest.bookingReturnIdsByNameAndCheckinAndCheckout()
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(0));
+    }
 }
