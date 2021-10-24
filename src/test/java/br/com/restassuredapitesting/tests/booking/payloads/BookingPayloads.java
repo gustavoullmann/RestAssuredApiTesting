@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 public class BookingPayloads {
 
-    public static JSONObject payloadValidBooking() {
+    public static JSONObject payloadValidBookingToken() {
         JSONObject payload = new JSONObject();
         JSONObject bookingDates = new JSONObject();
 
@@ -16,7 +16,7 @@ public class BookingPayloads {
         payload.put("totalprice", 111);
         payload.put("depositpaid", true);
         payload.put("bookingdates", bookingDates);
-        payload.put("additionalneeds", "breakfast");
+        payload.put("additionalneeds", "token");
 
         return payload;
     }
@@ -34,6 +34,23 @@ public class BookingPayloads {
         payload.put("depositpaid", true);
         payload.put("bookingdates", bookingDates);
         payload.put("additionalneeds", "realizar todos os testes");
+
+        return payload;
+    }
+
+    public static JSONObject payloadValidBookingAuthorization() {
+        JSONObject payload = new JSONObject();
+        JSONObject bookingDates = new JSONObject();
+
+        bookingDates.put("checkin", "2000-01-01");
+        bookingDates.put("checkout", "2001-01-01");
+
+        payload.put("firstname", "Update");
+        payload.put("lastname", "Authorisation");
+        payload.put("totalprice", 333);
+        payload.put("depositpaid", true);
+        payload.put("bookingdates", bookingDates);
+        payload.put("additionalneeds", "Authorisation");
 
         return payload;
     }
