@@ -10,6 +10,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.response.Response;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -76,7 +77,13 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelo nome")
     public void validaListagemDeIdsDasReservasPeloNome() {
 
-        getBookingRequest.bookingReturnIdsByName()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String firstName = booking.then().extract().path("firstname");
+
+        getBookingRequest.bookingReturnIdsByFilter("firstname", firstName,
+                                                   "", null,
+                                                   "", null)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -88,7 +95,13 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelo sobrenome")
     public void validaListagemDeIdsDasReservasPeloSobrenome() {
 
-        getBookingRequest.bookingReturnIdsByLastName()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String lastName = booking.then().extract().path("lastname");
+
+        getBookingRequest.bookingReturnIdsByFilter("lastname", lastName,
+                                                   "", null,
+                                                   "", null)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -100,7 +113,13 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pela data checkin")
     public void validaListagemDeIdsDasReservasPeloCheckin() {
 
-        getBookingRequest.bookingReturnIdsByCheckin()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String checkIn = booking.then().extract().path("bookingdates.checkin");
+
+        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkin", checkIn,
+                                                   "", null,
+                                                   "", null)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -112,7 +131,13 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pela data checkout")
     public void validaListagemDeIdsDasReservasPeloCheckout() {
 
-        getBookingRequest.bookingReturnIdsByCheckout()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String checkout = booking.then().extract().path("bookingdates.checkout");
+
+        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkout", checkout,
+                                                   "", null,
+                                                   "", null)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -124,7 +149,14 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelas datas checkin e checkout")
     public void validaListagemDeIdsDasReservasPeloCheckinAndCheckout() {
 
-        getBookingRequest.bookingReturnIdsByCheckinAndCheckout()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String checkIn = booking.then().extract().path("bookingdates.checkin");
+        String checkOut = booking.then().extract().path("bookingdates.checkout");
+
+        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkin", checkIn,
+                                                   "bookingdates.checkout", checkOut,
+                                                   "", null)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -133,10 +165,18 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pelo nome e datas checkin e checkout")
-    public void validaListagemDeIdsDasReservasPeloNomeAndCheckinAndCheckout() {
+    @DisplayName("Listar Id's de reservas filtrados")
+    public void validaListagemDeIdsDasReservasByFilter() {
 
-        getBookingRequest.bookingReturnIdsByNameAndCheckinAndCheckout()
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String firstName = booking.then().extract().path("firstname" );
+        String checkIn = booking.then().extract().path("bookingdates.checkin");
+        String checkOut = booking.then().extract().path("bookingdates.checkout");
+
+        getBookingRequest.bookingReturnIdsByFilter("firstname", firstName,
+                                                   "bookingdates.checkin", checkIn,
+                                                   "bookingdates.checkout", checkOut)
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
