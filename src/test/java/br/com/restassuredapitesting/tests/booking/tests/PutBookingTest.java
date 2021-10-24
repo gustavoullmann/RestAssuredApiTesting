@@ -4,15 +4,18 @@ import br.com.restassuredapitesting.base.BaseTest;
 import br.com.restassuredapitesting.suites.AcceptanceTests;
 import br.com.restassuredapitesting.suites.AllTests;
 import br.com.restassuredapitesting.tests.auth.requests.PostAuthRequest;
+import br.com.restassuredapitesting.tests.booking.payloads.BookingPayloads;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
 import br.com.restassuredapitesting.tests.booking.requests.PutBookingRequest;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
+import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.greaterThan;
 
 @Feature("Feature - Atualização de Reservas")
@@ -37,5 +40,18 @@ public class PutBookingTest extends BaseTest {
                 .then()
                 .statusCode(200)
                 .body("size()",greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Criar uma reserva")
+    public void criarUmaReserva() {
+        String nome = BookingPayloads.payloadCreateValidBooking().getString("firstname");
+
+        putBookingRequest.createBooking()
+                .then()
+                .statusCode(200)
+                .body("booking.firstname", containsString(nome));
     }
 }
