@@ -11,7 +11,6 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
-import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -53,5 +52,20 @@ public class PutBookingTest extends BaseTest {
                 .then()
                 .statusCode(200)
                 .body("booking.firstname", containsString(nome));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, AcceptanceTests.class})
+    @DisplayName("Alterar uma reserva somente utilizando uma autorização")
+    public void validarAlteracaoDeUmaReservaUtilizandoAuthorization() {
+
+        int primeiroId = getBookingRequest.returnFirtsId();
+        String nome = BookingPayloads.payloadValidBookingAuthorization().getString("firstname");
+
+        putBookingRequest.updateBookingAuthorization(primeiroId)
+                .then()
+                .statusCode(200)
+                .body("firstname", containsString(nome));
     }
 }
