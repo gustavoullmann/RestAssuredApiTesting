@@ -33,7 +33,24 @@ public class BookingPayloads {
         payload.put("totalprice", 222);
         payload.put("depositpaid", true);
         payload.put("bookingdates", bookingDates);
-        payload.put("additionalneeds", "realizar todos os testes");
+        payload.put("additionalneeds", "token");
+
+        return payload;
+    }
+
+    public static JSONObject payloadCreateInvalidBooking() {
+        JSONObject payload = new JSONObject();
+        JSONObject bookingDates = new JSONObject();
+
+        bookingDates.put("checkin", "2020-01-01");
+        bookingDates.put("checkout", "2021-01-01");
+
+        payload.put("nameTeste", "Teste");
+        payload.put("lastname", 1234);
+        payload.put("totalprice", "pago");
+        payload.put("depositpaid", true);
+        payload.put("bookingdates", bookingDates);
+        payload.put("additionalneeds", "token");
 
         return payload;
     }
