@@ -20,4 +20,13 @@ public class PutBookingRequest {
                 .body(bookingPayloads.payloadValidBooking().toString())
                 .put("booking/" + id);
     }
+
+    @Step("Cria uma reserva")
+    public Response createBooking() {
+        return given()
+                .header("Content-Type", "application/json")
+                .when()
+                .body(bookingPayloads.payloadCreateValidBooking().toString())
+                .post("booking/");
+    }
 }
