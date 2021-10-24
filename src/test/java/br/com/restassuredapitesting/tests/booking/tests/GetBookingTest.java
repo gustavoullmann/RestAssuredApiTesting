@@ -3,6 +3,7 @@ package br.com.restassuredapitesting.tests.booking.tests;
 import br.com.restassuredapitesting.base.BaseTest;
 import br.com.restassuredapitesting.suites.AcceptanceTests;
 import br.com.restassuredapitesting.suites.AllTests;
+import br.com.restassuredapitesting.suites.EndToEnd;
 import br.com.restassuredapitesting.suites.SchemaTests;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
 import br.com.restassuredapitesting.utils.Utils;
@@ -180,5 +181,24 @@ public class GetBookingTest extends BaseTest {
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, EndToEnd.class})
+    @DisplayName("Retornar Status Code = 500 eo executar filtro mal formatado")
+    public void validaRetorno500DeFiltroIncorretoNasReservas() {
+
+        Response booking = getBookingRequest.bookingReturnFirstId();
+
+        String firstName = booking.then().extract().path("firstname" );
+        String checkIn = booking.then().extract().path("bookingdates.checkin");
+        String checkOut = booking.then().extract().path("bookingdates.checkout");
+
+        getBookingRequest.bookingReturnIdsByFilter("teste", firstName,
+                        "", null,
+                        "", null)
+                .then()
+                .statusCode(500);
     }
 }
