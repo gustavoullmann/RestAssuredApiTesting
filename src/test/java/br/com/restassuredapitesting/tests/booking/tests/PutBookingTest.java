@@ -44,19 +44,6 @@ public class PutBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Criar uma reserva")
-    public void criarUmaReserva() {
-        String nome = BookingPayloads.payloadCreateValidBooking().getString("firstname");
-
-        putBookingRequest.createBooking()
-                .then()
-                .statusCode(200)
-                .body("booking.firstname", containsString(nome));
-    }
-
-    @Test
-    @Severity(SeverityLevel.NORMAL)
-    @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Alterar uma reserva somente utilizando uma autorização")
     public void validarAlteracaoDeUmaReservaUtilizandoAuthorization() {
 
