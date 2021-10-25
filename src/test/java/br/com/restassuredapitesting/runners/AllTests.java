@@ -22,3 +22,5 @@ import org.junit.runners.Suite;
 public class AllTests {
 
 }
+
+//Todos os testes funcionam
