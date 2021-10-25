@@ -28,4 +28,14 @@ public class PostBookingRequest {
                 .body(bookingPayloads.payloadCreateInvalidBooking().toString())
                 .post("booking/");
     }
+
+    @Step("Cria uma reserva com header Accept inválido")
+    public Response createBookingInvalidAccept(JSONObject payload) {
+        return given()
+                .header("Accept", "-")
+                .header("Content-Type", "application/json")
+                .when()
+                .body(payload.toString())
+                .post("booking/");
+    }
 }
