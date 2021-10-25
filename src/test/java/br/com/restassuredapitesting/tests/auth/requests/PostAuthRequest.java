@@ -8,8 +8,8 @@ import static io.restassured.RestAssured.given;
 
 public class PostAuthRequest {
 
-    @Step("Retorna o token")
-    public Response tokenReturs() {
+    @Step("Autentica login e retorna Response (com token)")
+    public Response getAuthCreateTokenResponse() {
 
         AuthPayloads authPayloads = new AuthPayloads();
 
@@ -20,9 +20,9 @@ public class PostAuthRequest {
                 .post("auth");
     }
 
-    @Step("Busca o token")
-    public String getToken() {
-        return "token=" + this.tokenReturs()
+    @Step("Extrai o token de uma Response para uma String")
+    public String authCreateTokenResponseToString() {
+        return "token=" + this.getAuthCreateTokenResponse()
                 .then()
                 .statusCode(200)
                 .extract()
