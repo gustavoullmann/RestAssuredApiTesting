@@ -20,7 +20,7 @@ import java.io.File;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
 import static org.hamcrest.Matchers.greaterThan;
 
-@Feature("Feature - Retorno de Reservas")
+@Feature("Feature - Consultas de Reservas")
 public class GetBookingTest extends BaseTest {
 
     GetBookingRequest getBookingRequest = new GetBookingRequest();
