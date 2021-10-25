@@ -31,7 +31,7 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas")
     public void validaListagemDeIdsDasReservas() {
 
-        getBookingRequest.bookingReturnIds()
+        getBookingRequest.returnBookingIdsList()
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -43,7 +43,7 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Garantir o schema de retorno da listagem de reservas")
     public void validaSchemaDaListagemDeReservas() {
 
-        getBookingRequest.bookingReturnIds()
+        getBookingRequest.returnBookingIdsList()
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookingsIdList"))));
@@ -82,7 +82,7 @@ public class GetBookingTest extends BaseTest {
 
         String firstName = booking.then().extract().path("firstname");
 
-        getBookingRequest.bookingReturnIdsByFilter("firstname", firstName,
+        getBookingRequest.returnBookingIdsListWithFilters("firstname", firstName,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -100,7 +100,7 @@ public class GetBookingTest extends BaseTest {
 
         String lastName = booking.then().extract().path("lastname");
 
-        getBookingRequest.bookingReturnIdsByFilter("lastname", lastName,
+        getBookingRequest.returnBookingIdsListWithFilters("lastname", lastName,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -118,7 +118,7 @@ public class GetBookingTest extends BaseTest {
 
         String checkIn = booking.then().extract().path("bookingdates.checkin");
 
-        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkin", checkIn,
+        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkin", checkIn,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -136,7 +136,7 @@ public class GetBookingTest extends BaseTest {
 
         String checkout = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkout", checkout,
+        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkout", checkout,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -155,7 +155,7 @@ public class GetBookingTest extends BaseTest {
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.bookingReturnIdsByFilter("bookingdates.checkin", checkIn,
+        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkin", checkIn,
                                                    "bookingdates.checkout", checkOut,
                                                    "", null)
                 .then()
@@ -175,7 +175,7 @@ public class GetBookingTest extends BaseTest {
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.bookingReturnIdsByFilter("firstname", firstName,
+        getBookingRequest.returnBookingIdsListWithFilters("firstname", firstName,
                                                    "bookingdates.checkin", checkIn,
                                                    "bookingdates.checkout", checkOut)
                 .then()
@@ -195,7 +195,7 @@ public class GetBookingTest extends BaseTest {
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.bookingReturnIdsByFilter("teste", firstName,
+        getBookingRequest.returnBookingIdsListWithFilters("teste", firstName,
                         "", null,
                         "", null)
                 .then()
