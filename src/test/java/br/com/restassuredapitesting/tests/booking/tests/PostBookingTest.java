@@ -75,4 +75,15 @@ public class PostBookingTest extends BaseTest {
                 .statusCode(200)
                 .body("booking.firstname", containsString(nome));
     }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, EndToEnd.class})
+    @DisplayName("Criar uma reserva com Header Accept Inválido")
+    public void criarUmaReservaHeaderAcceptInvalido() {
+
+        postBookingRequest.createBookingInvalidAccept(BookingPayloads.payloadCreateValidBooking1())
+                .then()
+                .statusCode(418);
+    }
 }
