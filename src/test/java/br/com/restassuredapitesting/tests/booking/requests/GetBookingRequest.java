@@ -51,10 +51,3 @@ public class GetBookingRequest {
                 .get("booking");
     }
 }
-
-
-
-
-
-
-
