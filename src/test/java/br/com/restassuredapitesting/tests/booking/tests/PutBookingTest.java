@@ -3,6 +3,7 @@ package br.com.restassuredapitesting.tests.booking.tests;
 import br.com.restassuredapitesting.base.BaseTest;
 import br.com.restassuredapitesting.suites.AcceptanceTests;
 import br.com.restassuredapitesting.suites.AllTests;
+import br.com.restassuredapitesting.suites.EndToEnd;
 import br.com.restassuredapitesting.tests.auth.requests.PostAuthRequest;
 import br.com.restassuredapitesting.tests.booking.payloads.BookingPayloads;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
@@ -54,5 +55,48 @@ public class PutBookingTest extends BaseTest {
                 .then()
                 .statusCode(200)
                 .body("firstname", containsString(nome));
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, EndToEnd.class})
+    @DisplayName("Alterar uma reserva sem enviar um token")
+    public void validarAlteracaoDeUmaReservaUSemToken() {
+        int primeiroId = getBookingRequest.bookingReturnIds()
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("[0].bookingid");
+
+        putBookingRequest.updateBookingToken(primeiroId, "")
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, EndToEnd.class})
+    @DisplayName("Alterar uma reserva com token adulterado")
+    public void validarAlteracaoDeUmaReservaComTokenAdulterado() {
+        int primeiroId = getBookingRequest.bookingReturnIds()
+                .then()
+                .statusCode(200)
+                .extract()
+                .path("[0].bookingid");
+
+        putBookingRequest.updateBookingToken(primeiroId, postAuthRequest.getToken() + "FakeToken")
+                .then()
+                .statusCode(403);
+    }
+
+    @Test
+    @Severity(SeverityLevel.NORMAL)
+    @Category({AllTests.class, EndToEnd.class})
+    @DisplayName("Alterar uma reserva inexistente com token")
+    public void validarAlteracaoDeUmaReservaInexistenteComToken() {
+
+        putBookingRequest.updateBookingToken(-1, postAuthRequest.getToken())
+                .then()
+                .statusCode(405);
     }
 }
