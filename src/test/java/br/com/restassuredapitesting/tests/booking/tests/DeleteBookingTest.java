@@ -26,18 +26,18 @@ public class DeleteBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Excluir com sucesso uma reserva válida utilizando um token válido")
     public void deletaUmaReserva() {
-        int primeiroId = getBookingRequest.bookingReturnIds()
+        int primeiroId = getBookingRequest.returnBookingIdsList()
                 .then()
                 .statusCode(200)
                 .extract()
                 .path("[0].bookingid");
 
-        deleteBookingRequest.deleteBookingToken(primeiroId, postAuthRequest.authCreateTokenResponseToString())
+        deleteBookingRequest.deleteBookingWithToken(primeiroId, postAuthRequest.authCreateTokenResponseToString())
                 .then()
                 .statusCode(201);
 //              .body()??? TODO: revisar
 
-        getBookingRequest.bookingReturn(primeiroId)
+        getBookingRequest.returnSpecificBookingWithId(primeiroId)
                 .then()
                 .statusCode(404);
     }
@@ -48,7 +48,7 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Excluir uma reserva inválida utilizando um token válido")
     public void deletaUmaReservaInvalida() {
 
-        deleteBookingRequest.deleteBookingToken(-1, postAuthRequest.authCreateTokenResponseToString())
+        deleteBookingRequest.deleteBookingWithToken(-1, postAuthRequest.authCreateTokenResponseToString())
                 .then()
                 .statusCode(405);
 //              .body()??? TODO: revisar
@@ -59,18 +59,18 @@ public class DeleteBookingTest extends BaseTest {
     @Category({AllTests.class, EndToEnd.class})
     @DisplayName("Excluir uma reserva válida utilizando um token inválido")
     public void deletaUmaReservaSemToken() {
-        int primeiroId = getBookingRequest.bookingReturnIds()
+        int primeiroId = getBookingRequest.returnBookingIdsList()
                 .then()
                 .statusCode(200)
                 .extract()
                 .path("[0].bookingid");
 
-        deleteBookingRequest.deleteBookingToken(primeiroId, "invalidToken")
+        deleteBookingRequest.deleteBookingWithToken(primeiroId, "invalidToken")
                 .then()
                 .statusCode(403);
 //              .body()??? TODO: revisar
 
-        getBookingRequest.bookingReturn(primeiroId)
+        getBookingRequest.returnSpecificBookingWithId(primeiroId)
                 .then()
                 .statusCode(200);
     }
