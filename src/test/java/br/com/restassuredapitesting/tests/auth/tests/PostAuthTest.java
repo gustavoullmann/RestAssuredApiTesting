@@ -21,8 +21,8 @@ public class PostAuthTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Retorna token para um usuário")
-    public void validaRetornoDeTokenParaUsuario() {
+    @DisplayName("Confirma retorno de token válido após autenticação")
+    public void validateAuthAndTokenResponse() {
         postAuthRequest.authAndCreateTokenResponse()
                 .then()
                 .statusCode(200)
