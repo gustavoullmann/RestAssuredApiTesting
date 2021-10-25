@@ -17,7 +17,7 @@ public class PutBookingRequest {
                 .header("Accept", "application/json")
                 .header("Cookie", token)
                 .when()
-                .body(bookingPayloads.payloadValidBookingToken().toString())
+                .body(bookingPayloads.validBookingPayload1().toString())
                 .put("booking/" + id);
     }
 
@@ -28,7 +28,7 @@ public class PutBookingRequest {
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .when()
-                .body(bookingPayloads.payloadValidBookingAuthorization().toString())
+                .body(bookingPayloads.validBookingPayload1().toString())
                 .put("booking/" + id);
     }
 }

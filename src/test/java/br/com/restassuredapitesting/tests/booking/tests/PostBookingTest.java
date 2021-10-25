@@ -25,9 +25,9 @@ public class PostBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Criar uma reserva")
     public void criarUmaReserva() {
-        String nome = BookingPayloads.payloadCreateValidBooking1().getString("firstname");
+        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
 
-        postBookingRequest.createBooking(BookingPayloads.payloadCreateValidBooking1())
+        postBookingRequest.createBooking(BookingPayloads.validBookingPayload1())
                 .then()
                 .statusCode(200)
                 .body("booking.firstname", containsString(nome));
@@ -49,15 +49,15 @@ public class PostBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Criar duas reservas em sequencia")
     public void criarDuasReservasSequenciais() {
-        String nome1 = BookingPayloads.payloadCreateValidBooking1().getString("firstname");
-        String nome2 = BookingPayloads.payloadCreateValidBooking2().getString("firstname");
+        String nome1 = BookingPayloads.validBookingPayload1().getString("firstname");
+        String nome2 = BookingPayloads.validBookingPayload2().getString("firstname");
 
-        postBookingRequest.createBooking(BookingPayloads.payloadCreateValidBooking1())
+        postBookingRequest.createBooking(BookingPayloads.validBookingPayload1())
                 .then()
                 .statusCode(200)
                 .body("booking.firstname", containsString(nome1));
 
-        postBookingRequest.createBooking(BookingPayloads.payloadCreateValidBooking2())
+        postBookingRequest.createBooking(BookingPayloads.validBookingPayload2())
                 .then()
                 .statusCode(200)
                 .body("booking.firstname", containsString(nome2));
@@ -69,9 +69,9 @@ public class PostBookingTest extends BaseTest {
     @DisplayName("Criar uma reserva com payload maior")
     public void criarUmaReservaComPayLoadInvalidoMaior() {
 
-        String nome = BookingPayloads.payloadCreateInvalidBookingMoreParams().getString("firstname");
+        String nome = BookingPayloads.invalidBookingPayloadExtraParams().getString("firstname");
 
-        postBookingRequest.createBooking(BookingPayloads.payloadCreateInvalidBookingMoreParams())
+        postBookingRequest.createBooking(BookingPayloads.invalidBookingPayloadExtraParams())
                 .then()
                 .log().all()
                 .statusCode(200)
@@ -84,7 +84,7 @@ public class PostBookingTest extends BaseTest {
     @DisplayName("Criar uma reserva com Header Accept Inválido")
     public void criarUmaReservaHeaderAcceptInvalido() {
 
-        postBookingRequest.createBookingInvalidAccept(BookingPayloads.payloadCreateValidBooking1())
+        postBookingRequest.createBookingInvalidAccept(BookingPayloads.validBookingPayload1())
                 .then()
                 .statusCode(418);
     }

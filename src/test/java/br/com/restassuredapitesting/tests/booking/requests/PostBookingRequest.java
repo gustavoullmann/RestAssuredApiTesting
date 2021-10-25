@@ -25,7 +25,7 @@ public class PostBookingRequest {
         return given()
                 .header("Content-Type", "application/json")
                 .when()
-                .body(bookingPayloads.payloadCreateInvalidBooking().toString())
+                .body(bookingPayloads.invalidBookingPayload().toString())
                 .post("booking/");
     }
 

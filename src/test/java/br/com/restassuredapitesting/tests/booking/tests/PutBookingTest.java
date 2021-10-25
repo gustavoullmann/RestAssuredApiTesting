@@ -49,7 +49,7 @@ public class PutBookingTest extends BaseTest {
     public void validarAlteracaoDeUmaReservaUtilizandoAuthorization() {
 
         int primeiroId = getBookingRequest.returnFirtsId();
-        String nome = BookingPayloads.payloadValidBookingAuthorization().getString("firstname");
+        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
 
         putBookingRequest.updateBookingAuthorization(primeiroId)
                 .then()
