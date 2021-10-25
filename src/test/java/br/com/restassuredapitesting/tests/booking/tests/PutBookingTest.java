@@ -36,7 +36,7 @@ public class PutBookingTest extends BaseTest {
                 .extract()
                 .path("[0].bookingid");
 
-        putBookingRequest.updateBookingToken(primeiroId, postAuthRequest.getToken())
+        putBookingRequest.updateBookingToken(primeiroId, postAuthRequest.authCreateTokenResponseToString())
                 .then()
                 .statusCode(200)
                 .body("size()",greaterThan(0));
@@ -84,7 +84,7 @@ public class PutBookingTest extends BaseTest {
                 .extract()
                 .path("[0].bookingid");
 
-        putBookingRequest.updateBookingToken(primeiroId, postAuthRequest.getToken() + "FakeToken")
+        putBookingRequest.updateBookingToken(primeiroId, postAuthRequest.authCreateTokenResponseToString() + "FakeToken")
                 .then()
                 .statusCode(403);
     }
@@ -95,7 +95,7 @@ public class PutBookingTest extends BaseTest {
     @DisplayName("Alterar uma reserva inexistente com token")
     public void validarAlteracaoDeUmaReservaInexistenteComToken() {
 
-        putBookingRequest.updateBookingToken(-1, postAuthRequest.getToken())
+        putBookingRequest.updateBookingToken(-1, postAuthRequest.authCreateTokenResponseToString())
                 .then()
                 .statusCode(405);
     }

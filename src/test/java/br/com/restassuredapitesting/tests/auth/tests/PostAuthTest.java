@@ -23,7 +23,7 @@ public class PostAuthTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Retorna token para um usuário")
     public void validaRetornoDeTokenParaUsuario() {
-        postAuthRequest.tokenReturs()
+        postAuthRequest.authAndCreateTokenResponse()
                 .then()
                 .statusCode(200)
                 .body("token", notNullValue());
