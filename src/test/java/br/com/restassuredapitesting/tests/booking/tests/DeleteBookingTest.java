@@ -26,7 +26,7 @@ public class DeleteBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Excluir com sucesso uma reserva válida utilizando um token válido")
     public void deletaUmaReserva() {
-        int primeiroId = getBookingRequest.returnBookingIdsList()
+        int primeiroId = getBookingRequest.getBookingIdsList()
                 .then()
                 .statusCode(200)
                 .extract()
@@ -37,7 +37,7 @@ public class DeleteBookingTest extends BaseTest {
                 .statusCode(201);
 //              .body()??? TODO: revisar
 
-        getBookingRequest.returnSpecificBookingWithId(primeiroId)
+        getBookingRequest.getSpecificBookingWithId(primeiroId)
                 .then()
                 .statusCode(404);
     }
@@ -59,7 +59,7 @@ public class DeleteBookingTest extends BaseTest {
     @Category({AllTests.class, EndToEnd.class})
     @DisplayName("Excluir uma reserva válida utilizando um token inválido")
     public void deletaUmaReservaSemToken() {
-        int primeiroId = getBookingRequest.returnBookingIdsList()
+        int primeiroId = getBookingRequest.getBookingIdsList()
                 .then()
                 .statusCode(200)
                 .extract()
@@ -70,7 +70,7 @@ public class DeleteBookingTest extends BaseTest {
                 .statusCode(403);
 //              .body()??? TODO: revisar
 
-        getBookingRequest.returnSpecificBookingWithId(primeiroId)
+        getBookingRequest.getSpecificBookingWithId(primeiroId)
                 .then()
                 .statusCode(200);
     }
