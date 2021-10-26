@@ -28,7 +28,7 @@ public class PutBookingRequest {
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .when()
-                .body(bookingPayloads.validBookingPayload1().toString())
+                .body(bookingPayloads.validBookingPayload2().toString())
                 .put("booking/" + id);
     }
 }

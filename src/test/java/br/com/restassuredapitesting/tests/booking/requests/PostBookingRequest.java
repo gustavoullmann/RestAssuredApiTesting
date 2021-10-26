@@ -18,7 +18,7 @@ public class PostBookingRequest {
     }
 
     @Step("Cria uma reserva com header Accept inválido")
-    public Response postCreateBookingWithWrongAcceptHeader(JSONObject payload) {
+    public Response postCreateBookingWithInvalidAcceptHeader(JSONObject payload) {
         return given()
                 .header("Accept", "-")
                 .header("Content-Type", "application/json")
