@@ -7,8 +7,8 @@ import static io.restassured.RestAssured.given;
 
 public class GetPingRequest {
 
-    @Step("Retorna API online")
-    public Response healthCheckApiReturn() {
+    @Step("Retorna status da API")
+    public Response GetHealthCheckApiStatus() {
         return given()
                 .header("Content-Type", "application/json")
                 .when()
