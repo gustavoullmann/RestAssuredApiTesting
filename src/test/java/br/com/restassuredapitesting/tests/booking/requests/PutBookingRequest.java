@@ -22,9 +22,9 @@ public class PutBookingRequest {
     }
 
     @Step("Atualiza uma Reserva específica usando uma Authorization válida")
-    public Response putUpdateBookingWithValidAuthorization(int id) {
+    public Response putUpdateBookingWithValidAuthorization(int id, String authorization) {
         return given()
-                .header("Authorization", "Basic YWRtaW46cGFzc3dvcmQxMjM=") //TODO: tentar passar essa autorização para PostAuthRequest
+                .header("Authorization", authorization)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .when()
