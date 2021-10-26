@@ -10,8 +10,8 @@ public class PutBookingRequest {
 
     BookingPayloads bookingPayloads = new BookingPayloads();
 
-    @Step("Atualiza uma Reserva específica com o parâmetro token")
-    public Response updateBookingToken(int id, String token) {
+    @Step("Atualiza uma Reserva específica usando um token válido")
+    public Response putUpdateBookingWithValidToken(int id, String token) {
         return given()
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
@@ -21,10 +21,10 @@ public class PutBookingRequest {
                 .put("booking/" + id);
     }
 
-    @Step("Atualiza uma Reserva específica com o parâmetro Authorization")
-    public Response updateBookingAuthorization(int id) {
+    @Step("Atualiza uma Reserva específica usando uma Authorization válida")
+    public Response putUpdateBookingWithValidAuthorization(int id) {
         return given()
-                .header("Authorization", "Basic YWRtaW46cGFzc3dvcmQxMjM=")
+                .header("Authorization", "Basic YWRtaW46cGFzc3dvcmQxMjM=") //TODO: tentar passar essa autorização para PostAuthRequest
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .when()
