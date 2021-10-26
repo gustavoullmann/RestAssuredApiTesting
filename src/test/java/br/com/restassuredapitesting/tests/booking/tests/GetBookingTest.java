@@ -55,7 +55,9 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Garantir o schema de retorno de uma reserva")
     public void validaSchemaDeUmaReserva() {
 
-        getBookingRequest.bookingReturnFirstId()
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+
+        getBookingRequest.returnSpecificBookingWithId(firstId)
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
@@ -67,7 +69,9 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Garantir o retorno de uma reserva específica")
     public void validaRetornoDeReservaEspecifica() {
 
-        getBookingRequest.bookingReturnFirstId()
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+
+        getBookingRequest.returnSpecificBookingWithId(firstId)
                 .then()
                 .statusCode(200);
     }
@@ -78,8 +82,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelo nome")
     public void validaListagemDeIdsDasReservasPeloNome() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname");
 
         getBookingRequest.returnBookingIdsListWithFilters("firstname", firstName,
@@ -96,8 +100,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelo sobrenome")
     public void validaListagemDeIdsDasReservasPeloSobrenome() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String lastName = booking.then().extract().path("lastname");
 
         getBookingRequest.returnBookingIdsListWithFilters("lastname", lastName,
@@ -114,8 +118,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pela data checkin")
     public void validaListagemDeIdsDasReservasPeloCheckin() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String checkIn = booking.then().extract().path("bookingdates.checkin");
 
         getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkin", checkIn,
@@ -132,8 +136,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pela data checkout")
     public void validaListagemDeIdsDasReservasPeloCheckout() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String checkout = booking.then().extract().path("bookingdates.checkout");
 
         getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkout", checkout,
@@ -150,8 +154,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados pelas datas checkin e checkout")
     public void validaListagemDeIdsDasReservasPeloCheckinAndCheckout() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
@@ -169,8 +173,8 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas filtrados")
     public void validaListagemDeIdsDasReservasByFilter() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname" );
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
@@ -189,11 +193,9 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Retornar Status Code = 500 eo executar filtro mal formatado")
     public void validaRetorno500DeFiltroIncorretoNasReservas() {
 
-        Response booking = getBookingRequest.bookingReturnFirstId();
-
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname" );
-        String checkIn = booking.then().extract().path("bookingdates.checkin");
-        String checkOut = booking.then().extract().path("bookingdates.checkout");
 
         getBookingRequest.returnBookingIdsListWithFilters("teste", firstName,
                         "", null,
