@@ -23,7 +23,7 @@ public class PostAuthTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Confirma retorno de token válido após autenticação")
     public void validateAuthAndTokenResponse() {
-        postAuthRequest.authAndCreateTokenResponse()
+        postAuthRequest.postAuthAndCreateTokenResponse()
                 .then()
                 .statusCode(200)
                 .body("token", notNullValue());
