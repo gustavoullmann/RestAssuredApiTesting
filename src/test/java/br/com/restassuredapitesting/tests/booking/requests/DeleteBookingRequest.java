@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 
 public class DeleteBookingRequest {
 
-    @Step("Exclui uma Reserva específica usando um token válido")
+    @Step("Exclui uma Reserva específica usando um token")
     public Response deleteBookingWithToken(int id, String token) {
         return given()
                 .header("Content-Type", "application/json")

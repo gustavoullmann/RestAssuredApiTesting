@@ -10,5 +10,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         DeleteBookingTest.class
 })
+
 public class EndToEnd {
 }

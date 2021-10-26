@@ -46,7 +46,8 @@ public class GetBookingTest extends BaseTest {
         getBookingRequest.getBookingIdsList()
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookingsIdList"))));
+                .body(matchesJsonSchema(new File(Utils
+                        .getSchemaBasePath("booking","bookingsIdList"))));
     }
 
     @Test
@@ -60,7 +61,8 @@ public class GetBookingTest extends BaseTest {
         getBookingRequest.getSpecificBookingWithId(firstId)
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
+                .body(matchesJsonSchema(new File(Utils
+                        .getSchemaBasePath("booking","booking"))));
     }
 
     @Test

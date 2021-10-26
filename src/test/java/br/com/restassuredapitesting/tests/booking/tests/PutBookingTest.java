@@ -32,14 +32,14 @@ public class PutBookingTest extends BaseTest {
     public void assurePutUpdateValidBookingWithValidToken() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
+        String firstname = BookingPayloads.validBookingPayload1().getString("firstname");
         String token = postAuthRequest.authCreateTokenResponseToString();
 
         putBookingRequest.putUpdateBookingWithValidToken(firstId, token)
                 .then()
                 .statusCode(200)
                 .body("size()",greaterThan(0),
-                        "firstname", containsString(nome));
+                        "firstname", containsString(firstname));
     }
 
     @Test
@@ -50,13 +50,13 @@ public class PutBookingTest extends BaseTest {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         String authorization = "Basic YWRtaW46cGFzc3dvcmQxMjM=";
-        String nome = BookingPayloads.validBookingPayload2().getString("firstname");
+        String firstname = BookingPayloads.validBookingPayload2().getString("firstname");
 
         putBookingRequest.putUpdateBookingWithValidAuthorization(firstId, authorization)
                 .then()
                 .statusCode(200)
                 .body("size()",greaterThan(0),
-                        "firstname", containsString(nome));
+                        "firstname", containsString(firstname));
     }
 
     @Test
