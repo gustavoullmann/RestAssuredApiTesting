@@ -31,7 +31,7 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Listar Id's de reservas")
     public void validaListagemDeIdsDasReservas() {
 
-        getBookingRequest.returnBookingIdsList()
+        getBookingRequest.getBookingIdsList()
                 .then()
                 .statusCode(200)
                 .body("size()", greaterThan(0));
@@ -43,7 +43,7 @@ public class GetBookingTest extends BaseTest {
     @DisplayName("Garantir o schema de retorno da listagem de reservas")
     public void validaSchemaDaListagemDeReservas() {
 
-        getBookingRequest.returnBookingIdsList()
+        getBookingRequest.getBookingIdsList()
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","bookingsIdList"))));
@@ -57,7 +57,7 @@ public class GetBookingTest extends BaseTest {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
 
-        getBookingRequest.returnSpecificBookingWithId(firstId)
+        getBookingRequest.getSpecificBookingWithId(firstId)
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchema(new File(Utils.getSchemaBasePath("booking","booking"))));
@@ -71,7 +71,7 @@ public class GetBookingTest extends BaseTest {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
 
-        getBookingRequest.returnSpecificBookingWithId(firstId)
+        getBookingRequest.getSpecificBookingWithId(firstId)
                 .then()
                 .statusCode(200);
     }
@@ -83,10 +83,10 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasPeloNome() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname");
 
-        getBookingRequest.returnBookingIdsListWithFilters("firstname", firstName,
+        getBookingRequest.getBookingIdsListWithFilters("firstname", firstName,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -101,10 +101,10 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasPeloSobrenome() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String lastName = booking.then().extract().path("lastname");
 
-        getBookingRequest.returnBookingIdsListWithFilters("lastname", lastName,
+        getBookingRequest.getBookingIdsListWithFilters("lastname", lastName,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -119,10 +119,10 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasPeloCheckin() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String checkIn = booking.then().extract().path("bookingdates.checkin");
 
-        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkin", checkIn,
+        getBookingRequest.getBookingIdsListWithFilters("bookingdates.checkin", checkIn,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -137,10 +137,10 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasPeloCheckout() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String checkout = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkout", checkout,
+        getBookingRequest.getBookingIdsListWithFilters("bookingdates.checkout", checkout,
                                                    "", null,
                                                    "", null)
                 .then()
@@ -155,11 +155,11 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasPeloCheckinAndCheckout() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.returnBookingIdsListWithFilters("bookingdates.checkin", checkIn,
+        getBookingRequest.getBookingIdsListWithFilters("bookingdates.checkin", checkIn,
                                                    "bookingdates.checkout", checkOut,
                                                    "", null)
                 .then()
@@ -174,12 +174,12 @@ public class GetBookingTest extends BaseTest {
     public void validaListagemDeIdsDasReservasByFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname" );
         String checkIn = booking.then().extract().path("bookingdates.checkin");
         String checkOut = booking.then().extract().path("bookingdates.checkout");
 
-        getBookingRequest.returnBookingIdsListWithFilters("firstname", firstName,
+        getBookingRequest.getBookingIdsListWithFilters("firstname", firstName,
                                                    "bookingdates.checkin", checkIn,
                                                    "bookingdates.checkout", checkOut)
                 .then()
@@ -194,10 +194,10 @@ public class GetBookingTest extends BaseTest {
     public void validaRetorno500DeFiltroIncorretoNasReservas() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
-        Response booking = getBookingRequest.returnSpecificBookingWithId(firstId);
+        Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
         String firstName = booking.then().extract().path("firstname" );
 
-        getBookingRequest.returnBookingIdsListWithFilters("teste", firstName,
+        getBookingRequest.getBookingIdsListWithFilters("teste", firstName,
                         "", null,
                         "", null)
                 .then()
