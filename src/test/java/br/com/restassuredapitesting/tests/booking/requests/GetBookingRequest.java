@@ -22,15 +22,6 @@ public class GetBookingRequest {
                 .get("booking");
     }
 
-    @Step("Retorna Reserva do primeiro Id cadastrado") //TODO: remover esse método e usar o returnSpecificBookingWithId em seu lugar
-    public Response bookingReturnFirstId() {
-        int firstId = returnBookingIdsListFirstId();
-
-        return given()
-                .when()
-                .get("booking/" + firstId);
-    }
-
     @Step("Retorna uma reserva específica cadastrada usando Id")
     public Response returnSpecificBookingWithId(int id) {
         return given()
