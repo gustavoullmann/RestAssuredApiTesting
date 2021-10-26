@@ -10,6 +10,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.junit4.DisplayName;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -25,12 +26,14 @@ public class PostBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Criar uma Reserva válida")
     public void assurePostCreateValidBooking() {
-        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
 
-        postBookingRequest.postCreateBooking(BookingPayloads.validBookingPayload1())
+        JSONObject validBookingPayload = BookingPayloads.validBookingPayload1();
+        String firstname = BookingPayloads.validBookingPayload1().getString("firstname");
+
+        postBookingRequest.postCreateBooking(validBookingPayload)
                 .then()
                 .statusCode(200)
-                .body("booking.firstname", containsString(nome));
+                .body("booking.firstname", containsString(firstname));
     }
 
     @Test
@@ -39,7 +42,9 @@ public class PostBookingTest extends BaseTest {
     @DisplayName("Criar uma Reserva inválido")
     public void avoidPostCreateInvalidBooking() {
 
-        postBookingRequest.postCreateBooking(BookingPayloads.invalidBookingPayload())
+        JSONObject invalidBookingPayload = BookingPayloads.invalidBookingPayload();
+
+        postBookingRequest.postCreateBooking(invalidBookingPayload)
                 .then()
                 .statusCode(500);
     }
@@ -49,18 +54,21 @@ public class PostBookingTest extends BaseTest {
     @Category({AllTests.class, AcceptanceTests.class})
     @DisplayName("Criar duas Reservas em sequência")
     public void assurePostCreateSequentialBookings() {
-        String nome1 = BookingPayloads.validBookingPayload1().getString("firstname");
-        String nome2 = BookingPayloads.validBookingPayload2().getString("firstname");
 
-        postBookingRequest.postCreateBooking(BookingPayloads.validBookingPayload1())
+        JSONObject validBookingPayload1 = BookingPayloads.validBookingPayload1();
+        JSONObject validBookingPayload2 = BookingPayloads.validBookingPayload2();
+        String firstname1 = BookingPayloads.validBookingPayload1().getString("firstname");
+        String firstname2 = BookingPayloads.validBookingPayload2().getString("firstname");
+
+        postBookingRequest.postCreateBooking(validBookingPayload1)
                 .then()
                 .statusCode(200)
-                .body("booking.firstname", containsString(nome1));
+                .body("booking.firstname", containsString(firstname1));
 
-        postBookingRequest.postCreateBooking(BookingPayloads.validBookingPayload2())
+        postBookingRequest.postCreateBooking(validBookingPayload2)
                 .then()
                 .statusCode(200)
-                .body("booking.firstname", containsString(nome2));
+                .body("booking.firstname", containsString(firstname2));
     }
 
     @Test
@@ -69,13 +77,14 @@ public class PostBookingTest extends BaseTest {
     @DisplayName("Criar uma Reserva com informações extras no payload")
     public void assurePostCreateValidBookingWithExtraAttributes() {
 
-        String nome = BookingPayloads.invalidBookingPayloadExtraParams().getString("firstname");
+        JSONObject invalidBookingPayloadExtraParams = BookingPayloads.invalidBookingPayloadExtraParams();
+        String firstname = BookingPayloads.invalidBookingPayloadExtraParams().getString("firstname");
 
-        postBookingRequest.postCreateBooking(BookingPayloads.invalidBookingPayloadExtraParams())
+        postBookingRequest.postCreateBooking(invalidBookingPayloadExtraParams)
                 .then()
                 .log().all()
                 .statusCode(200)
-                .body("booking.firstname", containsString(nome));
+                .body("booking.firstname", containsString(firstname));
     }
 
     @Test
@@ -84,7 +93,9 @@ public class PostBookingTest extends BaseTest {
     @DisplayName("Criar uma Reserva com atributo 'Header Accept' inválido")
     public void avoidPostCreateBookingWithInvalidAcceptHeader() {
 
-        postBookingRequest.postCreateBookingWithInvalidAcceptHeader(BookingPayloads.validBookingPayload1())
+        JSONObject validBookingPayload = BookingPayloads.validBookingPayload1();
+
+        postBookingRequest.postCreateBookingWithInvalidAcceptHeader(validBookingPayload)
                 .then()
                 .statusCode(418);
     }
