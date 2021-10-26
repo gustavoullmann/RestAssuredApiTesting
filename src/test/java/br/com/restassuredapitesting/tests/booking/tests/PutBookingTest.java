@@ -49,9 +49,10 @@ public class PutBookingTest extends BaseTest {
     public void assurePutUpdateValidBookingWithValidAuthorization() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        String authorization = "Basic YWRtaW46cGFzc3dvcmQxMjM=";
         String nome = BookingPayloads.validBookingPayload2().getString("firstname");
 
-        putBookingRequest.putUpdateBookingWithValidAuthorization(firstId)
+        putBookingRequest.putUpdateBookingWithValidAuthorization(firstId, authorization)
                 .then()
                 .statusCode(200)
                 .body("size()",greaterThan(0),
