@@ -28,11 +28,11 @@ public class DeleteBookingTest extends BaseTest {
     public void assureDeleteValidBookingWithValidToken() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        String token = postAuthRequest.authCreateTokenResponseToString();
 
-        deleteBookingRequest.deleteBookingWithToken(firstId, postAuthRequest.authCreateTokenResponseToString())
+        deleteBookingRequest.deleteBookingWithToken(firstId, token)
                 .then()
                 .statusCode(201);
-//              .body()??? TODO: revisar
 
         getBookingRequest.getSpecificBookingWithId(firstId)
                 .then()
@@ -45,10 +45,11 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Excluir uma reserva inválida utilizando um token válido")
     public void avoidDeleteInvalidBookingWithValidToken() {
 
-        deleteBookingRequest.deleteBookingWithToken(-1, postAuthRequest.authCreateTokenResponseToString())
+        String token = postAuthRequest.authCreateTokenResponseToString();
+
+        deleteBookingRequest.deleteBookingWithToken(-1, token)
                 .then()
                 .statusCode(405);
-//              .body()??? TODO: revisar
     }
 
     @Test
@@ -62,7 +63,6 @@ public class DeleteBookingTest extends BaseTest {
         deleteBookingRequest.deleteBookingWithToken(firstId, "invalidToken")
                 .then()
                 .statusCode(403);
-//              .body()??? TODO: revisar
 
         getBookingRequest.getSpecificBookingWithId(firstId)
                 .then()
