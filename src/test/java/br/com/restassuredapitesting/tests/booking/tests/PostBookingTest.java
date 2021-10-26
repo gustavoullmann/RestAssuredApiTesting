@@ -23,8 +23,8 @@ public class PostBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Criar uma reserva")
-    public void criarUmaReserva() {
+    @DisplayName("Criar uma Reserva válida")
+    public void assurePostCreateValidBooking() {
         String nome = BookingPayloads.validBookingPayload1().getString("firstname");
 
         postBookingRequest.postCreateBooking(BookingPayloads.validBookingPayload1())
@@ -36,8 +36,8 @@ public class PostBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Criar uma reserva com payload inválido")
-    public void criarUmaReservaComPayLoadInvalido() {
+    @DisplayName("Criar uma Reserva inválido")
+    public void avoidPostCreateInvalidBooking() {
 
         postBookingRequest.postCreateBooking(BookingPayloads.invalidBookingPayload())
                 .then()
@@ -47,8 +47,8 @@ public class PostBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Criar duas reservas em sequencia")
-    public void criarDuasReservasSequenciais() {
+    @DisplayName("Criar duas Reservas em sequência")
+    public void assurePostCreateSequentialBookings() {
         String nome1 = BookingPayloads.validBookingPayload1().getString("firstname");
         String nome2 = BookingPayloads.validBookingPayload2().getString("firstname");
 
@@ -66,8 +66,8 @@ public class PostBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Criar uma reserva com payload maior")
-    public void criarUmaReservaComPayLoadInvalidoMaior() {
+    @DisplayName("Criar uma Reserva com informações extras no payload")
+    public void assurePostCreateValidBookingWithExtraAttributes() {
 
         String nome = BookingPayloads.invalidBookingPayloadExtraParams().getString("firstname");
 
@@ -81,10 +81,10 @@ public class PostBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Criar uma reserva com Header Accept Inválido")
-    public void criarUmaReservaHeaderAcceptInvalido() {
+    @DisplayName("Criar uma Reserva com atributo 'Header Accept' inválido")
+    public void avoidPostCreateBookingWithInvalidAcceptHeader() {
 
-        postBookingRequest.postCreateBookingWithWrongAcceptHeader(BookingPayloads.validBookingPayload1())
+        postBookingRequest.postCreateBookingWithInvalidAcceptHeader(BookingPayloads.validBookingPayload1())
                 .then()
                 .statusCode(418);
     }
