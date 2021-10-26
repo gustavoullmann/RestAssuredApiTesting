@@ -28,47 +28,45 @@ public class PutBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Alterar uma reserva somente utilizando um token")
-    public void validarAlteracaoDeUmaReservaUtilizandoToken() {
-        int primeiroId = getBookingRequest.getBookingIdsList()
-                .then()
-                .statusCode(200)
-                .extract()
-                .path("[0].bookingid");
+    @DisplayName("Alterar uma Reserva válida usando um token válido")
+    public void assurePutUpdateValidBookingWithValidToken() {
 
-        putBookingRequest.putUpdateBookingWithValidToken(primeiroId, postAuthRequest.authCreateTokenResponseToString())
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
+        String token = postAuthRequest.authCreateTokenResponseToString();
+
+        putBookingRequest.putUpdateBookingWithValidToken(firstId, token)
                 .then()
                 .statusCode(200)
-                .body("size()",greaterThan(0));
+                .body("size()",greaterThan(0),
+                        "firstname", containsString(nome));
     }
 
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Alterar uma reserva somente utilizando uma autorização")
-    public void validarAlteracaoDeUmaReservaUtilizandoAuthorization() {
+    @DisplayName("Alterar uma Reserva válida usando uma autorização válida")
+    public void assurePutUpdateValidBookingWithValidAuthorization() {
 
-        int primeiroId = getBookingRequest.returnBookingIdsListFirstId();
-        String nome = BookingPayloads.validBookingPayload1().getString("firstname");
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        String nome = BookingPayloads.validBookingPayload2().getString("firstname");
 
-        putBookingRequest.putUpdateBookingWithValidAuthorization(primeiroId)
+        putBookingRequest.putUpdateBookingWithValidAuthorization(firstId)
                 .then()
                 .statusCode(200)
-                .body("firstname", containsString(nome));
+                .body("size()",greaterThan(0),
+                        "firstname", containsString(nome));
     }
 
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Alterar uma reserva sem enviar um token")
-    public void validarAlteracaoDeUmaReservaUSemToken() {
-        int primeiroId = getBookingRequest.getBookingIdsList()
-                .then()
-                .statusCode(200)
-                .extract()
-                .path("[0].bookingid");
+    @DisplayName("Alterar uma Reserva válida usando um token vazio")
+    public void avoidPutUpdateValidBookingWithVoidToken() {
 
-        putBookingRequest.putUpdateBookingWithValidToken(primeiroId, "")
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+
+        putBookingRequest.putUpdateBookingWithValidToken(firstId, "")
                 .then()
                 .statusCode(403);
     }
@@ -76,15 +74,13 @@ public class PutBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Alterar uma reserva com token adulterado")
-    public void validarAlteracaoDeUmaReservaComTokenAdulterado() {
-        int primeiroId = getBookingRequest.getBookingIdsList()
-                .then()
-                .statusCode(200)
-                .extract()
-                .path("[0].bookingid");
+    @DisplayName("Alterar uma Reserva válida usando um token inválido")
+    public void avoidPutUpdateValidBookingWithInvalidToken() {
 
-        putBookingRequest.putUpdateBookingWithValidToken(primeiroId, postAuthRequest.authCreateTokenResponseToString() + "FakeToken")
+        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        String fakeToken = postAuthRequest.authCreateTokenResponseToString() + "FakeToken";
+
+        putBookingRequest.putUpdateBookingWithValidToken(firstId, fakeToken )
                 .then()
                 .statusCode(403);
     }
@@ -92,10 +88,12 @@ public class PutBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Alterar uma reserva inexistente com token")
-    public void validarAlteracaoDeUmaReservaInexistenteComToken() {
+    @DisplayName("Alterar uma Reserva inválida usando um token válido")
+    public void avoidPutUpdateInvalidBookingWithValidToken() {
 
-        putBookingRequest.putUpdateBookingWithValidToken(-1, postAuthRequest.authCreateTokenResponseToString())
+        String token = postAuthRequest.authCreateTokenResponseToString();
+
+        putBookingRequest.putUpdateBookingWithValidToken(-1, token)
                 .then()
                 .statusCode(405);
     }
