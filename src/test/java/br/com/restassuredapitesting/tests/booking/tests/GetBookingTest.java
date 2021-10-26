@@ -28,8 +28,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas")
-    public void validaListagemDeIdsDasReservas() {
+    @DisplayName("Listar Id's de Reservas válidas")
+    public void assureGetBookingIdsList() {
 
         getBookingRequest.getBookingIdsList()
                 .then()
@@ -40,8 +40,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Category({AllTests.class, SchemaTests.class})
-    @DisplayName("Garantir o schema de retorno da listagem de reservas")
-    public void validaSchemaDaListagemDeReservas() {
+    @DisplayName("Garantir o Schema da lista de Id's de Reservas válidas")
+    public void assureGetBookingIdsListSchema() {
 
         getBookingRequest.getBookingIdsList()
                 .then()
@@ -52,8 +52,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     @Category({AllTests.class, SchemaTests.class})
-    @DisplayName("Garantir o schema de retorno de uma reserva")
-    public void validaSchemaDeUmaReserva() {
+    @DisplayName("Garantir o Schema das informações de uma Reserva válida")
+    public void assureGetBookingSchema() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
 
@@ -66,8 +66,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Garantir o retorno de uma reserva específica")
-    public void validaRetornoDeReservaEspecifica() {
+    @DisplayName("Garantir o retorno de uma Reserva específica")
+    public void assureGetSpecificBookingWithId() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
 
@@ -79,8 +79,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pelo nome")
-    public void validaListagemDeIdsDasReservasPeloNome() {
+    @DisplayName("Listar Id's de reservas filtradas pelo nome")
+    public void assureGetBookingIdsListNameFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -97,8 +97,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pelo sobrenome")
-    public void validaListagemDeIdsDasReservasPeloSobrenome() {
+    @DisplayName("Listar Id's de Reservas válidas filtradas pelo sobrenome")
+    public void assureGetBookingIdsListLastnameFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -115,8 +115,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pela data checkin")
-    public void validaListagemDeIdsDasReservasPeloCheckin() {
+    @DisplayName("Listar Id's de Reservas válidas filtradas pela data de checkin")
+    public void assureGetBookingIdsListCheckinFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -133,8 +133,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pela data checkout")
-    public void validaListagemDeIdsDasReservasPeloCheckout() {
+    @DisplayName("Listar Id's de Reservas válidas filtradas pela data de checkout")
+    public void assureGetBookingIdsListCheckoutFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -151,8 +151,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados pelas datas checkin e checkout")
-    public void validaListagemDeIdsDasReservasPeloCheckinAndCheckout() {
+    @DisplayName("Listar Id's de Reservas válidas filtradas pelas datas de checkin e de checkout")
+    public void assureGetBookingIdsListCheckinCheckoutFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -170,8 +170,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, AcceptanceTests.class})
-    @DisplayName("Listar Id's de reservas filtrados")
-    public void validaListagemDeIdsDasReservasByFilter() {
+    @DisplayName("Listar Id's de Reservas válidas filtradas por nome e datas de checkin e de checkout")
+    public void assureGetBookingIdsListNameCheckinCheckoutFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);
@@ -190,8 +190,8 @@ public class GetBookingTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.NORMAL)
     @Category({AllTests.class, EndToEnd.class})
-    @DisplayName("Retornar Status Code = 500 eo executar filtro mal formatado")
-    public void validaRetorno500DeFiltroIncorretoNasReservas() {
+    @DisplayName("Retornar Status Code = 500 eo executar filtro de Reservas mal formatado")
+    public void assureGet500StatusCodeUsingBadFilter() {
 
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
         Response booking = getBookingRequest.getSpecificBookingWithId(firstId);

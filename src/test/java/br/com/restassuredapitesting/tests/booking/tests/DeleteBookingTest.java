@@ -56,7 +56,7 @@ public class DeleteBookingTest extends BaseTest {
     @Category({AllTests.class, EndToEnd.class})
     @DisplayName("Excluir uma reserva válida utilizando um token inválido")
     public void deletaUmaReservaSemToken() {
-        
+
         int firstId = getBookingRequest.returnBookingIdsListFirstId();
 
         deleteBookingRequest.deleteBookingWithToken(firstId, "invalidToken")
