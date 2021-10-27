@@ -7,14 +7,6 @@ import static io.restassured.RestAssured.given;
 
 public class GetBookingRequest {
 
-    public int returnBookingIdsListFirstId() {
-        return getBookingIdsList()
-                .then()
-                .statusCode(200)
-                .extract()
-                .path("[0].bookingid");
-    }
-
     @Step("Retorna lista de Id's das Reservas cadastradas")
     public Response getBookingIdsList() {
         return given()
