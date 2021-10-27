@@ -7,10 +7,10 @@ import br.com.restassuredapitesting.suites.EndToEnd;
 import br.com.restassuredapitesting.tests.auth.requests.PostAuthRequest;
 import br.com.restassuredapitesting.tests.booking.requests.DeleteBookingRequest;
 import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
+import br.com.restassuredapitesting.utils.Utils;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -21,6 +21,7 @@ public class DeleteBookingTest extends BaseTest {
     DeleteBookingRequest deleteBookingRequest = new DeleteBookingRequest();
     GetBookingRequest getBookingRequest = new GetBookingRequest();
     PostAuthRequest postAuthRequest = new PostAuthRequest();
+    Utils utils = new Utils();
 
     @Test
     @Severity(SeverityLevel.NORMAL)
@@ -28,7 +29,7 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Excluir uma Reserva válida usando um token válido")
     public void assureDeleteValidBookingWithValidToken() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
         String token = postAuthRequest.authCreateTokenResponseToString();
 
         deleteBookingRequest.deleteBookingWithToken(firstId, token)
@@ -59,7 +60,7 @@ public class DeleteBookingTest extends BaseTest {
     @DisplayName("Excluir uma reserva válida utilizando um token inválido")
     public void avoidDeleteValidBookingWithInvalidToken() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
 
         deleteBookingRequest.deleteBookingWithToken(firstId, "invalidToken")
                 .then()

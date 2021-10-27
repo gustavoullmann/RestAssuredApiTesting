@@ -6,8 +6,8 @@ import br.com.restassuredapitesting.suites.AllTests;
 import br.com.restassuredapitesting.suites.EndToEnd;
 import br.com.restassuredapitesting.tests.auth.requests.PostAuthRequest;
 import br.com.restassuredapitesting.tests.booking.payloads.BookingPayloads;
-import br.com.restassuredapitesting.tests.booking.requests.GetBookingRequest;
 import br.com.restassuredapitesting.tests.booking.requests.PutBookingRequest;
+import br.com.restassuredapitesting.utils.Utils;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
@@ -22,8 +22,8 @@ import static org.hamcrest.Matchers.greaterThan;
 public class PutBookingTest extends BaseTest {
 
     PutBookingRequest putBookingRequest = new PutBookingRequest();
-    GetBookingRequest getBookingRequest = new GetBookingRequest();
     PostAuthRequest postAuthRequest = new PostAuthRequest();
+    Utils utils = new Utils();
 
     @Test
     @Severity(SeverityLevel.NORMAL)
@@ -31,7 +31,7 @@ public class PutBookingTest extends BaseTest {
     @DisplayName("Alterar uma Reserva válida usando um token válido")
     public void assurePutUpdateValidBookingWithValidToken() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
         String firstname = BookingPayloads.validBookingPayload1().getString("firstname");
         String token = postAuthRequest.authCreateTokenResponseToString();
 
@@ -48,7 +48,7 @@ public class PutBookingTest extends BaseTest {
     @DisplayName("Alterar uma Reserva válida usando uma autorização válida")
     public void assurePutUpdateValidBookingWithValidAuthorization() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
         String authorization = "Basic YWRtaW46cGFzc3dvcmQxMjM=";
         String firstname = BookingPayloads.validBookingPayload2().getString("firstname");
 
@@ -65,7 +65,7 @@ public class PutBookingTest extends BaseTest {
     @DisplayName("Alterar uma Reserva válida usando um token vazio")
     public void avoidPutUpdateValidBookingWithVoidToken() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
 
         putBookingRequest.putUpdateBookingWithValidToken(firstId, "")
                 .then()
@@ -78,7 +78,7 @@ public class PutBookingTest extends BaseTest {
     @DisplayName("Alterar uma Reserva válida usando um token inválido")
     public void avoidPutUpdateValidBookingWithInvalidToken() {
 
-        int firstId = getBookingRequest.returnBookingIdsListFirstId();
+        int firstId = utils.returnBookingIdsListFirstId();
         String fakeToken = postAuthRequest.authCreateTokenResponseToString() + "FakeToken";
 
         putBookingRequest.putUpdateBookingWithValidToken(firstId, fakeToken )
